@@ -1,22 +1,21 @@
-//CIRCULAR QUEUE
 #include <iostream>
 using namespace std;
 
 #define MAX 50
 
-class CQueue
+class Queue
 {
     int queue[MAX];
     int front,rear;
     public:
-    CQueue()
+    Queue()
     {
         front=-1;
         rear=-1;
     }
     bool isfull()
     {
-        if((rear+1)%MAX==front)
+        if(rear==MAX-1)
             return 1;
         else
             return 0;
@@ -34,8 +33,7 @@ class CQueue
     {
         if(!isfull())
         {
-            rear=(rear+1)%MAX;
-            queue[rear]=a;
+            queue[++rear]=a;
             if(front==-1)
                 front=0;
         }
@@ -48,12 +46,13 @@ class CQueue
     {
         if(!isempty())
         {
-            if(front==rear)
-                front=rear=-1;
-            else
-            {
-                front=(front+1)%MAX;
-            }
+            front++;
+            display();
+        }
+        else if(front==rear)
+        {
+            front=rear-1;
+            display();
         }
         else 
         {
@@ -65,7 +64,7 @@ class CQueue
     void display()
     {
         cout<<endl<<"\t\t ";
-        for(int i=(front%MAX);i<=(rear%MAX);i++)
+        for(int i=front;i<=rear;i++)//PROBLENM
         {
             cout<<queue[i];
             if(i!=rear)
@@ -84,7 +83,7 @@ class CQueue
 
 int main()
 {
-    CQueue q;
+    Queue q;
     int a;
     do
     {
